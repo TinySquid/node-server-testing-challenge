@@ -5,10 +5,19 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "cross-env DB_ENV=testing jest --watch --verbose"
+    "test": "cross-env DB_ENV=testing jest --watch --verbose",
+    "test:coverage": "cross-env DB_ENV=testing jest --coverage --detectOpenHandles --forceExit || true"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!index.js",
+      "!**/node_modules/**",
+      "!**/coverage/**",
+      "!**/vendor/**",
+      "!**/data/**"
+    ]
   },
   "repository": {
     "type": "git",

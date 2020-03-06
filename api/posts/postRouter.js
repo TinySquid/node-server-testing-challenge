@@ -1,10 +1,9 @@
 const router = require("express").Router();
 
-const postDB = require("./postModel");
+const Post = require("../../data/models/Post");
 
 router.get("/", (req, res) => {
-  postDB
-    .get()
+  Post.get()
     .then((posts) => {
       if (posts) {
         res.status(200).json(posts);

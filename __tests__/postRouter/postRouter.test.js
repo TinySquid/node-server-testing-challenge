@@ -2,14 +2,14 @@ const request = require("supertest");
 
 const db = require("../../data/dbConfig");
 
-const server = require("../../server");
+const server = require("../../server/server");
 
-describe("post router", () => {
-  beforeEach(async () => {
-    // this function executes and clears out the table before each test
-    await db("posts").truncate();
-  });
+beforeEach(async () => {
+  // this function executes and clears out the table before each test
+  await db.seed.run();
+});
 
+describe("postRouter", () => {
   describe("GET /post", () => {
     //? Does it return the correct status code for the input provided?
     test("should return an OK status code", async () => {
@@ -21,12 +21,12 @@ describe("post router", () => {
     });
 
     //? Does it return the data in the expected format?
-    test("should return 0 posts by default", async () => {
-      const expectedRowCount = 0;
+    test("should return 3 posts by default", async () => {
+      const expectedPostCount = 3;
 
       const response = await request(server).get("/api/posts");
 
-      expect(response.body).toHaveLength(expectedRowCount);
+      expect(response.body).toHaveLength(expectedPostCount);
     });
 
     //? Does the data returned, if any, have the right content type?
